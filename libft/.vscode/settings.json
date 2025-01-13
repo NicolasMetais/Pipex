@@ -1,0 +1,10 @@
+{
+	"files.associations": {
+		"stdio.h": "c",
+		"proto.h": "c",
+		"string.h": "c",
+		"libft.h": "c",
+		"stdlib.h": "c"
+	},
+	"makefile.configureOnOpen": false
+}
