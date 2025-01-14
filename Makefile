@@ -2,6 +2,7 @@ SRCS = 	src/main.c \
 		src/error_manager.c \
 		src/parsing.c \
 		src/exec_shell.c \
+		src/process_manager.c \
 
 
 OBJS = $(SRCS:.c=.o)

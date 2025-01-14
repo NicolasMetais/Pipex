@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 21:11:34 by nmetais           #+#    #+#             */
-/*   Updated: 2025/01/13 05:11:24 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/14 03:42:36 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ int	env_exec(t_pipex *pipex, int i)
 {
 	char	*slash;
 	int		status;
-	
+
+	printf("IVI%s\n", pipex->cmd[i][0]);
 	slash = ft_strjoin("/", pipex->cmd[i][0]);
-	printf("%s\n", pipex->cmd[i][0]);
+	printf("IVI%s\n", slash);
 	status = exec_shell(pipex, pipex->env_path, slash, i);
-	perror("exec\n");
 	free(slash);
 	if (status == -1)
 		return (error_handler(2));

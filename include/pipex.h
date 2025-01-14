@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 16:26:44 by nmetais           #+#    #+#             */
-/*   Updated: 2025/01/13 00:47:37 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/14 05:37:51 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,14 @@ typedef struct s_pipex
 	t_boolean	absolute_path;
 }	t_pipex;
 
-int	error_handler(int error);
-int	file_error_handler(int error, char *av);
+int		error_handler(int error);
+int		file_error_handler(int error, char *av);
 
-int	env_parse(t_pipex *pipex);
-int	args_parse(t_pipex *pipex);
-int	env_exec(t_pipex *pipex, int i);
+int		env_parse(t_pipex *pipex);
+int		args_parse(t_pipex *pipex);
+
+int		env_exec(t_pipex *pipex, int i);
+void	fork_process(t_pipex *pipex, pid_t pid, int *pipe_fd, int i);
+void	fd_setup(t_pipex *pipex, int *pipe_fd, int i);
 
 #endif
