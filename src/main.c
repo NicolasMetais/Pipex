@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 16:26:32 by nmetais           #+#    #+#             */
-/*   Updated: 2025/01/14 05:43:22 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/15 04:48:23 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,20 @@ void	core(t_pipex *pipex)
 {
 	int		i;
 	pid_t	pid;
-	int		pipe_fd[2];
 
 	i = 0;
+	dup2(pipex->input_fd, STDIN_FILENO);
+	close(pipex->input_fd);
 	while (i < pipex->fork_count)
 	{
-		pipe(pipe_fd);
+		pipe(pipex->pipe_fd);
 		pid = fork();
-		fork_process(pipex, pid, pipe_fd, i);
+		fork_process(pipex, pid, i);
 		i++;
+		wait(NULL);
 	}
-	while (wait(NULL) > 0)
-		;
+	//while(wait(NULL) > 0);
+
 }
 
 int	main(int ac, char **av, char **env)

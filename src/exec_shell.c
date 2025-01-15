@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 21:11:34 by nmetais           #+#    #+#             */
-/*   Updated: 2025/01/14 03:42:36 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/15 04:48:47 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ int	exec_shell(t_pipex *pipex, char **path, char *slash, int i)
 		if (checker == 0)
 		{
 			execve(tester, pipex->cmd[i], pipex->env);
-			perror("execve");
+			perror("");
 			free(tester);
 			exit(EXIT_FAILURE);
 		}
 		free(tester);
 		j++;
 	}
-	return (checker);
+	return (0);
 }
 
 int	env_exec(t_pipex *pipex, int i)
@@ -41,10 +41,9 @@ int	env_exec(t_pipex *pipex, int i)
 	char	*slash;
 	int		status;
 
-	printf("IVI%s\n", pipex->cmd[i][0]);
 	slash = ft_strjoin("/", pipex->cmd[i][0]);
-	printf("IVI%s\n", slash);
 	status = exec_shell(pipex, pipex->env_path, slash, i);
+	perror("EXEC");
 	free(slash);
 	if (status == -1)
 		return (error_handler(2));

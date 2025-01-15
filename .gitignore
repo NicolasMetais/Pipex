@@ -1,3 +1,5 @@
 .gitignore
-./pipex
+pipex
 *.o
+*.a
+file1

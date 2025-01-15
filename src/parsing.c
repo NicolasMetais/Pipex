@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 21:10:31 by nmetais           #+#    #+#             */
-/*   Updated: 2025/01/14 05:18:54 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/15 04:45:31 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	args_parse(t_pipex *pipex)
 		i++;
 	}
 	pipex->input_fd = open(pipex->av[1], O_RDONLY);
-	pipex->outfile_fd = open(pipex->av[pipex->fork_count + 1],
+	pipex->outfile_fd = open(pipex->av[pipex->ac - 1],
 			O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	return (true);
 }
@@ -49,7 +49,7 @@ int	env_parse(t_pipex *pipex)
 	pipex->cmd = malloc(sizeof(char **) * pipex->fork_count);
 	if (!pipex->cmd)
 		return (error_handler(false));
-	while (i < pipex->fork_count - 1)
+	while (i < pipex->fork_count)
 	{
 		pipex->cmd[i] = ft_split(pipex->av[i], ' ');
 		i++;
