@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 21:10:31 by nmetais           #+#    #+#             */
-/*   Updated: 2025/01/15 04:45:31 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/16 01:45:24 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,18 @@
 
 int	args_parse(t_pipex *pipex)
 {
-	int		error;
-	int		i;
-	int		j;
-
-	i = 2;
-	error = access(pipex->av[1], F_OK | R_OK);
-	if (error == -1)
-		return (error_handler(2));
-	while (i < pipex->fork_count)
+	if (ft_strncmp(pipex->av[1], "here_doc", 8) == 0)
 	{
-		j = 0;
-		while (pipex->av[i][j])
-		{
-			if (pipex->av[i][0] == '/')
-				pipex->absolute_path = true;
-			j++;
-		}
-		i++;
+		pipex->fork_count = pipex->ac - 4;
+		pipex->limiter = pipex->av[2];
+		pipex->here_doc = true;
 	}
-	pipex->input_fd = open(pipex->av[1], O_RDONLY);
-	pipex->outfile_fd = open(pipex->av[pipex->ac - 1],
-			O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	else
+	{
+		pipex->fork_count = pipex->ac - 3;
+		if (access(pipex->av[1], F_OK | R_OK) == -1)
+			return (error_handler(2));
+	}
 	return (true);
 }
 
@@ -45,7 +35,10 @@ int	env_parse(t_pipex *pipex)
 
 	pipex->env_path = ft_split((*pipex->env), ':');
 	i = 0;
-	pipex->av = pipex->av + 2;
+	if (pipex->here_doc == true)
+		pipex->av = pipex->av + 3;
+	else
+		pipex->av = pipex->av + 2;
 	pipex->cmd = malloc(sizeof(char **) * pipex->fork_count);
 	if (!pipex->cmd)
 		return (error_handler(false));

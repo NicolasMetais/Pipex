@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 23:52:45 by nmetais           #+#    #+#             */
-/*   Updated: 2024/12/08 17:42:59 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/15 23:03:17 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	*get_next_line(int fd)
 	return (toprint);
 }
 
-int	main(int arc, char **arv)
+/* int	main(int arc, char **arv)
 {
 	int		fd;
 	char	*ret;
@@ -112,4 +112,4 @@ int	main(int arc, char **arv)
 			ret = get_next_line(fd);
 		}
 	}
-}
+} */

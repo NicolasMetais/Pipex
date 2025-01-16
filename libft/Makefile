@@ -42,6 +42,7 @@ SRCS = 	convert/ft_atoi.c \
 		printf/src/ft_char_manager.c \
 		printf/src/ft_printf.c \
 		get_next_line/src/get_next_line.c \
+		get_next_line/src/get_next_line_utils.c \
 
 SRCSB = linked_list/ft_lstnew_bonus.c \
 		linked_list/ft_lstadd_front_bonus.c \

@@ -3,6 +3,7 @@ SRCS = 	src/main.c \
 		src/parsing.c \
 		src/exec_shell.c \
 		src/process_manager.c \
+		src/here_doc.c \
 
 
 OBJS = $(SRCS:.c=.o)
@@ -13,21 +14,22 @@ CFLAGS = -Wall -Wextra -Werror -Ilibft/include -Iinclude -g3
 
 NAME = pipex
 
-LIB = .libft/libft.a
+LIB = libft/libft.a
 
 all: $(NAME)
 
-lib:
-	make -C ./libft
 
-$(NAME): lib $(OBJS)
-	$(CC) $(OBJS) ./libft/libft.a -o $(NAME)
+$(NAME): $(OBJS) $(LIB)
+	$(CC) $(OBJS) $(LIB) -o $(NAME)
+
+$(LIB):
+	$(MAKE) -C $(@D)
 
 .c.o:
-	$(CC) $(CFLAGS) -c $< -o $@ 
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf ./src/*.o
+	rm -rf $(OBJS)
 	make clean -C ./libft
 
 fclean: clean 
@@ -36,4 +38,4 @@ fclean: clean
 
 re:	fclean all
 
-.PHONY: all compil c lib clean fclean re
+.PHONY: all clean fclean re .c.o

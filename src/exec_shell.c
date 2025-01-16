@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 21:11:34 by nmetais           #+#    #+#             */
-/*   Updated: 2025/01/15 04:48:47 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/16 05:38:51 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ int	exec_shell(t_pipex *pipex, char **path, char *slash, int i)
 		checker = access(tester, F_OK);
 		if (checker == 0)
 		{
+			//ft_putendl_fd(*(pipex->env), 2);
+			//ft_putendl_fd(*(pipex->cmd[i]), 2);
+			//ft_putendl_fd(tester, 2);
 			execve(tester, pipex->cmd[i], pipex->env);
 			perror("");
 			free(tester);
@@ -33,6 +36,7 @@ int	exec_shell(t_pipex *pipex, char **path, char *slash, int i)
 		free(tester);
 		j++;
 	}
+	ft_putendl_fd("salut appa", 2);
 	return (0);
 }
 

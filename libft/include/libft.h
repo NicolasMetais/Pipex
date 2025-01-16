@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:33:37 by nmetais           #+#    #+#             */
-/*   Updated: 2025/01/11 16:17:42 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/15 23:02:36 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
+# include "../get_next_line/include/get_next_line.h"
 
 typedef struct s_list
 {
