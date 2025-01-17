@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 16:26:44 by nmetais           #+#    #+#             */
-/*   Updated: 2025/01/16 05:29:17 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/16 23:14:04 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef enum s_boolean
 
 typedef struct s_pipex
 {
-	char		**dup;
 	char		***cmd;
 	char		**env;
 	char		**av;
@@ -43,16 +42,16 @@ typedef struct s_pipex
 	t_boolean	here_doc;
 }	t_pipex;
 
-int		error_handler(int error);
-int		file_error_handler(int error, char *av);
+int			error_handler(int error);
+int			file_error_handler(int error, char *av);
 
-int		env_parse(t_pipex *pipex);
-int		args_parse(t_pipex *pipex);
+t_boolean	env_parse(t_pipex *pipex);
+t_boolean	args_parse(t_pipex *pipex);
 
-int		env_exec(t_pipex *pipex, int i);
-void	fork_process(t_pipex *pipex, pid_t pid, int i);
-void	fd_setup(t_pipex *pipex, int *pipe_fd, int i);
+int			env_exec(t_pipex *pipex, int i);
+t_boolean	fork_process(t_pipex *pipex, pid_t pid, int i);
+void		fd_setup(t_pipex *pipex, int *pipe_fd, int i);
 
-void	here_doc(t_pipex *pipex);
+void		here_doc(t_pipex *pipex);
 
 #endif

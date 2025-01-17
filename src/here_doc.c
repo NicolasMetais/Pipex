@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:46:50 by nmetais           #+#    #+#             */
-/*   Updated: 2025/01/16 06:50:20 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/17 04:40:28 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	here_doc_process(t_pipex *pipex)
 	size_t	size;
 
 	cmp = 40;
-	size = ft_strlen(pipex->limiter);
+	size = ft_strlen(pipex->limiter); //A CHANGER
+	close(pipex->pipe_fd[0]);
 	while (1)
 	{
 		ft_putstr_fd("heredoc> ", 2);
