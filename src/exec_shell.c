@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 21:11:34 by nmetais           #+#    #+#             */
-/*   Updated: 2025/01/19 18:31:14 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/19 22:21:15 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ int	env_exec(t_pipex *pipex, int i)
 	perror("");
 	free(slash);
 	if (status == -1)
-		return (error_handler(2));
+		return (false);
 	return (0);
 }

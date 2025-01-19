@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:08:22 by nmetais           #+#    #+#             */
-/*   Updated: 2024/12/08 17:38:20 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/19 22:40:37 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (str);
 }
 
-int main(void)
+/* int main(void)
 {
 	char *test = "abcdefghijklmnopqrstuwxyz";
 	char *res;
 	res = ft_substr(test, 10, 15);
 	printf("%s", res);
-}
+} */

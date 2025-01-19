@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 21:10:31 by nmetais           #+#    #+#             */
-/*   Updated: 2025/01/19 20:41:42 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/19 22:19:49 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_boolean	args_parse(t_pipex *pipex)
 	{
 		pipex->fork_count = pipex->ac - 3;
 		if (access(pipex->av[1], F_OK | R_OK) == -1)
-			return (error_handler(2));
+			return (write(2, "Error\n infile doesn't exist", 27), false);
 	}
 	return (true);
 }

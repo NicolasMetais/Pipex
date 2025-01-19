@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 23:52:47 by nmetais           #+#    #+#             */
-/*   Updated: 2024/12/08 17:44:06 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/19 22:37:40 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ char	*get_strjoin( char *s1, char*s2)
 			return (NULL);
 		s1[0] = '\0';
 	}
-	str = malloc(sizeof(char) * ((int)get_strlen(s1) + (int)get_strlen(s2) + 1));
+	size1 = get_strlen(s1);
+	str = malloc(sizeof(char) * ((int)size1 + (int)get_strlen(s2) + 1));
 	if (!str)
 		return (NULL);
-	size1 = get_strlen(s1);
 	i = -1;
 	while (i++, i < size1)
 		str[i] = s1[i];

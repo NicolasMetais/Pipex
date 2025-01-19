@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:46:50 by nmetais           #+#    #+#             */
-/*   Updated: 2025/01/19 21:24:42 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/19 22:17:45 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,4 @@ void	here_doc(t_pipex *pipex)
 		close(pipex->pipe_fd[0]);
 		wait(NULL);
 	}
-//valgrind --track-fds=yes --trace-children=yes  ./pipex here_doc EOF "grep test" "wc -l" file7
 }

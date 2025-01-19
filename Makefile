@@ -1,5 +1,5 @@
 SRCS = 	src/main.c \
-		src/error_manager.c \
+		src/free.c \
 		src/parsing.c \
 		src/exec_shell.c \
 		src/process_manager.c \
@@ -27,6 +27,9 @@ $(LIB):
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
+
+bonus:
+	make
 
 clean:
 	rm -rf $(OBJS)

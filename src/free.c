@@ -6,20 +6,35 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:32:18 by nmetais           #+#    #+#             */
-/*   Updated: 2025/01/15 02:21:26 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/19 22:19:57 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	error_handler(int error)
+void	free_all(t_pipex *pipex)
 {
-	if (error == 2)
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (pipex->env_path[i])
 	{
-		write(2, "Error\nWrong shell cmd", 21);
-		exit(127);
+		free(pipex->env_path[i]);
+		i++;
 	}
-	perror("");
-	exit(error);
-	return (error);
+	free (pipex->env_path);
+	i = 0;
+	while (pipex->cmd[i])
+	{
+		j = 0;
+		while (pipex->cmd[i][j])
+		{
+			free(pipex->cmd[i][j]);
+			j++;
+		}
+		free(pipex->cmd[i]);
+		i++;
+	}
+	free(pipex->cmd);
 }

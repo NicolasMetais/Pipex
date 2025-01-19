@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 16:26:44 by nmetais           #+#    #+#             */
-/*   Updated: 2025/01/16 23:14:04 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/19 22:36:34 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ typedef struct s_pipex
 	t_boolean	here_doc;
 }	t_pipex;
 
-int			error_handler(int error);
-int			file_error_handler(int error, char *av);
+void		free_all(t_pipex *pipex);
 
 t_boolean	env_parse(t_pipex *pipex);
 t_boolean	args_parse(t_pipex *pipex);
