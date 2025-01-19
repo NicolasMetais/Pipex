@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 21:10:31 by nmetais           #+#    #+#             */
-/*   Updated: 2025/01/16 21:46:49 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/19 20:41:42 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ t_boolean	args_parse(t_pipex *pipex)
 	return (true);
 }
 
+void	free_cmd(t_pipex *pipex, int i)
+{
+	while (i > 0)
+	{
+		free(pipex->cmd[i]);
+		i--;
+	}
+}
+
 t_boolean	env_parse(t_pipex *pipex)
 {
 	int		i;
@@ -41,15 +50,16 @@ t_boolean	env_parse(t_pipex *pipex)
 		pipex->av = pipex->av + 3;
 	else
 		pipex->av = pipex->av + 2;
-	pipex->cmd = malloc(sizeof(char **) * pipex->fork_count);
+	pipex->cmd = malloc(sizeof(char **) * (pipex->fork_count + 1));
 	if (!pipex->cmd)
 		return (false);
 	while (i < pipex->fork_count)
 	{
 		pipex->cmd[i] = ft_split(pipex->av[i], ' ');
-		if (pipex->cmd[i + 1] && !pipex->cmd[i])
-			return (free(pipex->cmd), 0);
+		if (i + 1 < pipex->fork_count && !pipex->cmd[i])
+			return (free_cmd(pipex, i), 0);
 		i++;
 	}
+	pipex->cmd[i] = NULL;
 	return (true);
 }

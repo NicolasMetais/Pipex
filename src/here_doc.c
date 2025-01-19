@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:46:50 by nmetais           #+#    #+#             */
-/*   Updated: 2025/01/17 04:40:28 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/19 21:24:42 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@ void	here_doc_process(t_pipex *pipex)
 	size_t	size;
 
 	cmp = 40;
-	size = ft_strlen(pipex->limiter); //A CHANGER
+	size = ft_strlen(pipex->limiter);
 	close(pipex->pipe_fd[0]);
 	while (1)
 	{
 		ft_putstr_fd("heredoc> ", 2);
 		line = get_next_line(0);
+		if (!line)
+			break ;
 		cmp = ft_strncmp(line, pipex->limiter, size);
-		if (cmp == 0)
+		if (cmp == 0 && (ft_strlen(line) - 1) == size)
 		{
 			free(line);
 			break ;
@@ -53,6 +55,7 @@ void	here_doc(t_pipex *pipex)
 	{
 		close(pipex->pipe_fd[1]);
 		dup2(pipex->pipe_fd[0], STDIN_FILENO);
+		close(pipex->pipe_fd[0]);
 		wait(NULL);
 	}
 //valgrind --track-fds=yes --trace-children=yes  ./pipex here_doc EOF "grep test" "wc -l" file7

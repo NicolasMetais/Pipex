@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 16:26:32 by nmetais           #+#    #+#             */
-/*   Updated: 2025/01/16 23:44:06 by nmetais          ###   ########.fr       */
+/*   Updated: 2025/01/19 20:57:32 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,29 @@
 
 void	free_all(t_pipex *pipex)
 {
-	(void)pipex;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (pipex->env_path[i])
+	{
+		free(pipex->env_path[i]);
+		i++;
+	}
+	free (pipex->env_path);
+	i = 0;
+	while (pipex->cmd[i])
+	{
+		j = 0;
+		while (pipex->cmd[i][j])
+		{
+			free(pipex->cmd[i][j]);
+			j++;
+		}
+		free(pipex->cmd[i]);
+		i++;
+	}
+	free(pipex->cmd);
 }
 
 void	pipex_init(t_pipex *pipex, int ac, char **av, char **env)
@@ -35,27 +57,29 @@ t_boolean	core(t_pipex *pipex)
 	int		i;
 	pid_t	pid;
 
-	i = 0;
+	i = -1;
 	if (pipex->here_doc == true)
 		here_doc(pipex);
 	else
 	{
-		if (dup2(pipex->input_fd, STDIN_FILENO) < 0)
-			return (false);
+		if (dup2(pipex->input_fd, STDIN_FILENO) == -1)
+			return (free_all(pipex), false);
 		close(pipex->input_fd);
 	}
-	while (i < pipex->fork_count)
+	while (++i < pipex->fork_count)
 	{
-		if (pipe(pipex->pipe_fd) < 0)
-			return (false);
+		if (pipe(pipex->pipe_fd) == -1)
+			return (free_all(pipex), false);
 		pid = fork();
 		if (pid == -1)
-			return (false);
-		fork_process(pipex, pid, i);
-		i++;
+			return (free_all(pipex), false);
+		if (!fork_process(pipex, pid, i))
+			return (free_all(pipex), false);
 	}
 	while (wait(NULL) != -1)
 		;
+	free_all(pipex);
+	close(pipex->outfile_fd);
 	return (true);
 }
 
@@ -65,7 +89,7 @@ t_boolean	open_files(t_pipex *pipex)
 	{
 		pipex->outfile_fd = open(pipex->av[pipex->ac - 1],
 				O_CREAT | O_WRONLY | O_APPEND, 0644);
-		if (pipex->outfile_fd < 0)
+		if (pipex->outfile_fd == -1)
 			return (false);
 	}
 	else
@@ -84,6 +108,10 @@ int	main(int ac, char **av, char **env)
 	t_pipex	pipex;
 	int		input_fd;
 
+	if (!env[0])
+	{
+		return (0);
+	}
 	input_fd = 0;
 	pipex.input_fd = input_fd;
 	if (ac > 4)
